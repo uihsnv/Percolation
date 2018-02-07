@@ -12,7 +12,5 @@ POOL = np.array([True, False])
 SIZE = 200
 P = 0.3
 
-LATTICE = choices(POOL, weights=[P, 1-P], k=(SIZE**2))
-
-plt.imshow(np.reshape(LATTICE, (SIZE, SIZE)))
+plt.imshow(np.reshape(choices(POOL, weights=[P, 1-P], k=(SIZE**2)), (SIZE, SIZE)))
 plt.show()
