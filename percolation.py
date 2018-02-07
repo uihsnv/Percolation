@@ -4,7 +4,6 @@ Percolation
 """
 
 import matplotlib.pyplot as plt
-from matplotlib.widgets import Slider
 import numpy as np
 from random import choices
 
