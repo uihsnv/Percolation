@@ -3,9 +3,9 @@
 Percolation
 """
 
+from random import choices
 import matplotlib.pyplot as plt
 import numpy as np
-from random import choices
 
 POOL = np.array([True, False])
 
