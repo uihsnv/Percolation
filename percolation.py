@@ -3,7 +3,6 @@
 Percolation
 """
 
-from random import choices
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -12,5 +11,5 @@ POOL = np.array([True, False])
 SIZE = 100
 P = 0.41
 fig,ax = plt.subplots(figsize=(12,12))
-ax.imshow(np.reshape(choices(POOL, weights=[P, 1-P], k=(SIZE**2)), (SIZE, SIZE)),cmap=plt.cm.tab20b)
+ax.imshow(np.reshape(np.random.choice(POOL, SIZE**2, True, [P, 1-P]), (SIZE, SIZE)))
 plt.show()
