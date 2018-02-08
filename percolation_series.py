@@ -3,7 +3,6 @@
 Percolation
 """
 
-from time import sleep
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -20,6 +19,8 @@ X = (P[1:] - P[:-1])/(1 - P[:-1])
 LATTICE = np.full((SIZE**2), False, dtype=bool)
 #LATTICE = np.random.choice(POOL, SIZE**2, True, [0.5, 0.5])
 
+figManager = plt.get_current_fig_manager()
+figManager.window.showMaximized()
 PEA = str(round(P[COUNT],2))
 plt.title("Percolation on a square lattice : p = "+PEA, fontsize='xx-large')
 plt.imshow(np.reshape(LATTICE, (SIZE, SIZE)))
