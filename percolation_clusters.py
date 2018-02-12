@@ -11,7 +11,7 @@ import numpy as np
 POOL = np.array([True, False])
 
 SIZE = 100
-P = 0.999
+P = 0.7
 
 FIGMANAGER = plt.get_current_fig_manager()
 FIGMANAGER.window.showMaximized()
