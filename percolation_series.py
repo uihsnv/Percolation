@@ -11,11 +11,11 @@ POOL = np.array([True, False])
 
 SIZE = 50
 PEAS = 20
-P_INIT = 1
-P_FINAL = 0
+P_INIT = 0
+P_FINAL = 1
 
 # list of 'p' values to sample/plot/scan-across
-P = np.linspace(P_INIT, P_FINAL, num=PEAS, endpoint=False)
+P = np.linspace(P_INIT, P_FINAL, num=PEAS, endpoint=True)
 
 # Say we need to go from a lattice of p -> p'
 if 0 <= P_INIT < P_FINAL <= 1:
@@ -39,7 +39,7 @@ FIGMANAGER.window.showMaximized()
 # string to display the p value along with the image
 PEA = str(round(P_INIT, 2))
 plt.title("Percolation on a square lattice : p = "+PEA, fontsize='xx-large')
-plt.imshow(np.reshape(LATTICE, (SIZE, SIZE)))
+plt.imshow(np.reshape(LATTICE, (SIZE, SIZE)), vmin=0, vmax=1)
 plt.pause(0.5)
 
 # construct an iterator over the empty-site flip-fraction array
@@ -55,6 +55,6 @@ for fraction in IT:
 
     PEA = str(round(P[IT.index + 1], 2))
     plt.title("Percolation on a square lattice : p = "+PEA, fontsize='xx-large')
-    plt.imshow(np.reshape(LATTICE, (SIZE, SIZE)))
+    plt.imshow(np.reshape(LATTICE, (SIZE, SIZE)), vmin=0, vmax=1)
     plt.draw()
     plt.pause(1)
