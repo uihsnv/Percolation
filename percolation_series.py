@@ -30,6 +30,9 @@ PEAS = 5
 P_INIT = 1
 P_FINAL = 0
 
+# initial percolation lattice
+LATTICE = np.random.choice(POOL, SIZE**2, True, [P_INIT, 1-P_INIT])
+
 # list of 'p' values to sample/plot/scan-across
 P = np.linspace(P_INIT, P_FINAL, num=PEAS, endpoint=True)
 
@@ -44,9 +47,6 @@ elif 1 >= P_INIT > P_FINAL >= 0:
     X = (P[:-1] - P[1:])/P[:-1]
 else:
     raise ValueError("Check initial and final 'p's")
-
-# initial percolation lattice
-LATTICE = np.random.choice(POOL, SIZE**2, True, [P_INIT, 1-P_INIT])
 
 # to maximise the display
 FIGMANAGER = plt.get_current_fig_manager()
