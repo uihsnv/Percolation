@@ -28,10 +28,12 @@ POOL = np.array([True, False])
 SIZE = 100
 P = 0.7
 
+PERK = np.random.choice(POOL, SIZE**2, True, [P, 1-P])
+
 FIGMANAGER = plt.get_current_fig_manager()
 FIGMANAGER.window.showMaximized()
 
 PEA = str(round(P, 3))
 plt.title("Percolation on a square lattice : p = "+PEA, fontsize='xx-large')
-plt.imshow(np.reshape(np.random.choice(POOL, SIZE**2, True, [P, 1-P]), (SIZE, SIZE)))
+plt.imshow(np.reshape(PERK, (SIZE, SIZE)))
 plt.show()
