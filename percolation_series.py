@@ -26,7 +26,7 @@ import numpy as np
 POOL = np.array([True, False])
 
 SIZE = 50
-PEAS = 5
+PEAS = 25
 P_INIT = 1
 P_FINAL = 0
 
@@ -72,5 +72,4 @@ for fraction in IT:
     PEA = str(round(P[IT.index + 1], 2))
     plt.title("Percolation on a square lattice : p = "+PEA, fontsize='xx-large')
     plt.imshow(np.reshape(LATTICE, (SIZE, SIZE)), cmap=None, vmin=0, vmax=1)
-    plt.draw()
     plt.pause(1)
