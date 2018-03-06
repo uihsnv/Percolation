@@ -50,7 +50,7 @@ def update_boundary(loc_x, loc_y):
     """
     Positions of neighbours of a site, not yet wet
     """
-    global BOUNDARY #pylint: disable=W0603
+    #global BOUNDARY #pylint: disable=W0603
 
     neighbours = [(loc_x, loc_y-1), (loc_x, loc_y+1), (loc_x-1, loc_y), (loc_x+1, loc_y)]
 
