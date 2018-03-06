@@ -26,8 +26,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 np.random.seed(7278)
-SIZE = 101
-STEPS = 100
+SIZE = 51
+STEPS = 500
 PAUSE_TIME = 0.0001
 
 # to maximise the display
@@ -76,6 +76,10 @@ for i in range(STEPS):
     plt.hist(BOUNDARY.values(), bins=50, range=(0, 1))
     plt.pause(PAUSE_TIME)
     plt.clf()
+
+    # Stops loop if wetness hits the boundary
+    if any(coord in [wetted[0], wetted[1]] for coord in [0, SIZE-1]):
+        break
 
     update_boundary(wetted[0], wetted[1])
 
