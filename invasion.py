@@ -27,17 +27,17 @@ import numpy as np
 
 np.random.seed(7278)
 SIZE = 101
-STEPS = 700
-PAUSE_TIME = 0.001
+STEPS = 100
+PAUSE_TIME = 0.0001
 
 # to maximise the display
 FIGMANAGER = plt.get_current_fig_manager()
 FIGMANAGER.window.showMaximized()
 
 LATTICE = np.full((SIZE, SIZE), False)
-plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
-plt.pause(PAUSE_TIME)
-plt.clf()
+#plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
+#plt.pause(PAUSE_TIME)
+#plt.clf()
 # Random number weights of each site indicating magnitude of the obstacle
 WEIGHTS = np.random.rand(SIZE, SIZE)
 # A 'dictionary' of the location and weights of boundary sites
@@ -45,9 +45,9 @@ BOUNDARY = {}
 
 CENTRE = (SIZE // 2) + 1
 LATTICE[CENTRE, CENTRE] = True
-plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
-plt.pause(PAUSE_TIME)
-plt.clf()
+#plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
+#plt.pause(PAUSE_TIME)
+#plt.clf()
 
 def update_boundary(loc_x, loc_y):
     """
@@ -72,12 +72,13 @@ for i in range(STEPS):
     del BOUNDARY[wetted]
 
     LATTICE[wetted] = True
-    plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
+    #plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
+    plt.hist(BOUNDARY.values(), bins=50, range=(0, 1))
     plt.pause(PAUSE_TIME)
     plt.clf()
 
     update_boundary(wetted[0], wetted[1])
 
 #plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
-#plt.pause(10)
-#print(BOUNDARY.values())
+plt.hist(BOUNDARY.values(), bins=100, range=(0, 1))
+plt.show()
