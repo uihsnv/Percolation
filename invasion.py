@@ -27,7 +27,8 @@ import numpy as np
 
 np.random.seed(7278)
 SIZE = 101
-STEPS = 100
+STEPS = 700
+PAUSE_TIME = 0.001
 
 # to maximise the display
 FIGMANAGER = plt.get_current_fig_manager()
@@ -35,8 +36,9 @@ FIGMANAGER.window.showMaximized()
 
 LATTICE = np.full((SIZE, SIZE), False)
 plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
-plt.pause(0.1)
-# Random number wieghts of each site indicating magnitude of the obstacle
+plt.pause(PAUSE_TIME)
+plt.clf()
+# Random number weights of each site indicating magnitude of the obstacle
 WEIGHTS = np.random.rand(SIZE, SIZE)
 # A 'dictionary' of the location and weights of boundary sites
 BOUNDARY = {}
@@ -44,13 +46,13 @@ BOUNDARY = {}
 CENTRE = (SIZE // 2) + 1
 LATTICE[CENTRE, CENTRE] = True
 plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
-plt.pause(0.1)
+plt.pause(PAUSE_TIME)
+plt.clf()
 
 def update_boundary(loc_x, loc_y):
     """
     Positions of neighbours of a site, not yet wet
     """
-    #global BOUNDARY #pylint: disable=W0603
 
     neighbours = [(loc_x, loc_y-1), (loc_x, loc_y+1), (loc_x-1, loc_y), (loc_x+1, loc_y)]
 
@@ -63,7 +65,6 @@ def update_boundary(loc_x, loc_y):
 update_boundary(CENTRE, CENTRE)
 
 for i in range(STEPS):
-
     # The location of the site on the boundary with the smallest weight
     wetted = min(BOUNDARY, key=BOUNDARY.get)
 
@@ -72,6 +73,11 @@ for i in range(STEPS):
 
     LATTICE[wetted] = True
     plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
-    plt.pause(00000.1)
+    plt.pause(PAUSE_TIME)
+    plt.clf()
 
     update_boundary(wetted[0], wetted[1])
+
+#plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
+#plt.pause(10)
+#print(BOUNDARY.values())
