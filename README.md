@@ -15,8 +15,9 @@ The notation used in the program is as follows:
 All the files are independent programs, and may be run using python 3. The different programs generate slightly different visualisations of percolation:
 
  * `percolation`: A single image of percolation at some **P**.
- * `percolation_series`: A slide-show of lattices across a range of **P** values.
- * `percolation_interactive`: The same as above, but with a slider.
- * `percolation_clusters`: Identifying the infinite cluster, and also other finite ones.
+ * `series`     : A slide-show of lattices across a range of **P** values.
+ * `interactive`: The same as above, but with a slider.
+ * `clusters`   : Identifying the infinite cluster, and also other finite ones.
+ * `invasion`   : Emergence of p_c from a wetting process
 
 The `interactive` and `clusters` programs are incomplete, and are a WORK-IN-PROGRESS.

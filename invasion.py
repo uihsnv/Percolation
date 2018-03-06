@@ -84,5 +84,5 @@ for i in range(STEPS):
     update_boundary(wetted[0], wetted[1])
 
 #plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
-plt.hist(BOUNDARY.values(), bins=100, range=(0, 1))
+plt.hist(BOUNDARY.values(), bins=50, range=(0, 1))
 plt.show()
