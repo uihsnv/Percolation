@@ -26,13 +26,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 np.random.seed(7278)
-SIZE = 51
-STEPS = 500
+SIZE = 101
+STEPS = 100
 PAUSE_TIME = 0.0001
 
 # to maximise the display
-FIGMANAGER = plt.get_current_fig_manager()
-FIGMANAGER.window.showMaximized()
+#FIGMANAGER = plt.get_current_fig_manager()
+#FIGMANAGER.window.showMaximized()
 
 LATTICE = np.full((SIZE, SIZE), False)
 #plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
@@ -72,8 +72,8 @@ for i in range(STEPS):
     del BOUNDARY[wetted]
 
     LATTICE[wetted] = True
-    #plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
-    plt.hist(BOUNDARY.values(), bins=50, range=(0, 1))
+    plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
+    #plt.hist(BOUNDARY.values(), bins=50, range=(0, 1))
     plt.pause(PAUSE_TIME)
     plt.clf()
 
@@ -83,6 +83,15 @@ for i in range(STEPS):
 
     update_boundary(wetted[0], wetted[1])
 
-#plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
-plt.hist(BOUNDARY.values(), bins=50, range=(0, 1))
+# to maximise the display
+#FIGMANAGER = plt.get_current_fig_manager()
+#FIGMANAGER.window.showMaximized()
+
+ALF = str(SIZE)
+BET = str(STEPS)
+plt.title("Invasion Percolation run for "+BET+" steps",
+          fontsize='x-large')
+plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
+#plt.xticks(np.arange(0, 1, 0.05))
+#plt.hist(BOUNDARY.values(), bins=50, range=(0, 1))
 plt.show()
