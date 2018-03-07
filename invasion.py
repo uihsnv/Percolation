@@ -29,14 +29,23 @@ np.random.seed(7278)
 SIZE = 101
 STEPS = 100
 PAUSE_TIME = 0.0001
+"""
+Initialisation type:
+    0 -> Single point, centre of lattice
+    1 -> Line spanning a lattice side, edge of lattice
+"""
+INIT_TYPE = 1
 
 def update_boundary(loc_x, loc_y):
     """
     Positions of neighbours of a site, not yet wet
     """
 
-    neighbours = [(loc_x, loc_y-1), (loc_x, loc_y+1), (loc_x-1, loc_y), (loc_x+1, loc_y)]
+    # List of all neighbours, with periodic boundaries
+    neighbours = [(loc_x, ((loc_y - 1) % SIZE)), (loc_x, ((loc_y + 1) % SIZE)),
+                  (((loc_x - 1) % SIZE), loc_y), (((loc_x + 1) % SIZE), loc_y)]
 
+    # List of those neighbours that aren't already wet
     unwet_neighbours = [position for position in neighbours if not LATTICE[position]]
 
     for pos in unwet_neighbours:
@@ -44,24 +53,31 @@ def update_boundary(loc_x, loc_y):
 
 
 # to maximise the display
-#FIGMANAGER = plt.get_current_fig_manager()
-#FIGMANAGER.window.showMaximized()
+FIGMANAGER = plt.get_current_fig_manager()
+FIGMANAGER.window.showMaximized()
 
+# The un-wet lattice
 LATTICE = np.full((SIZE, SIZE), False)
-#plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
-#plt.pause(PAUSE_TIME)
-#plt.clf()
 # Random number weights of each site indicating magnitude of the obstacle
 WEIGHTS = np.random.rand(SIZE, SIZE)
 # A 'dictionary' of the location and weights of boundary sites
 BOUNDARY = {}
 
-CENTRE = (SIZE // 2) + 1
-LATTICE[CENTRE, CENTRE] = True
-#plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
-#plt.pause(PAUSE_TIME)
-#plt.clf()
-update_boundary(CENTRE, CENTRE)
+# Choice of initial wetting
+if INIT_TYPE == 0:
+    CENTRE = (SIZE // 2) + 1
+    LATTICE[CENTRE, CENTRE] = True
+    update_boundary(CENTRE, CENTRE)
+elif INIT_TYPE == 1:
+    for j in range(SIZE):
+        LATTICE[0, j] = True
+        BOUNDARY[(1, j)] = WEIGHTS[1, j]
+        BOUNDARY[(SIZE-1, j)] = WEIGHTS[SIZE-1, j]
+
+plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
+plt.pause(PAUSE_TIME)
+plt.clf()
+
 
 for i in range(STEPS):
     # The location of the site on the boundary with the smallest weight
@@ -72,13 +88,17 @@ for i in range(STEPS):
 
     LATTICE[wetted] = True
     plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
+    #plt.xticks(np.arange(0, 1, 0.05))
     #plt.hist(BOUNDARY.values(), bins=50, range=(0, 1))
     plt.pause(PAUSE_TIME)
     plt.clf()
 
-    # Stops loop if wetness hits the boundary
+    # Indicates if wetness hits the boundary
     if any(coord in [wetted[0], wetted[1]] for coord in [0, SIZE-1]):
-        break
+        GAM = str(i)
+        print("Hit lattice edge at "+GAM)
+        print(wetted)
+        #break
 
     update_boundary(wetted[0], wetted[1])
 
@@ -88,9 +108,9 @@ for i in range(STEPS):
 
 ALF = str(SIZE)
 BET = str(STEPS)
-plt.title("Invasion Percolation run for "+BET+" steps",
+plt.title("Invasion Percolation from a line, run for "+BET+" steps",
           fontsize='x-large')
 plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
-#plt.xticks(np.arange(0, 1, 0.05))
-#plt.hist(BOUNDARY.values(), bins=50, range=(0, 1))
+#plt.xticks(np.arange(0, 1, 0.03))
+#plt.hist(BOUNDARY.values(), bins=100, range=(0, 1))
 plt.show()
