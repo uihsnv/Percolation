@@ -30,6 +30,19 @@ SIZE = 101
 STEPS = 100
 PAUSE_TIME = 0.0001
 
+def update_boundary(loc_x, loc_y):
+    """
+    Positions of neighbours of a site, not yet wet
+    """
+
+    neighbours = [(loc_x, loc_y-1), (loc_x, loc_y+1), (loc_x-1, loc_y), (loc_x+1, loc_y)]
+
+    unwet_neighbours = [position for position in neighbours if not LATTICE[position]]
+
+    for pos in unwet_neighbours:
+        BOUNDARY[pos] = WEIGHTS[pos]
+
+
 # to maximise the display
 #FIGMANAGER = plt.get_current_fig_manager()
 #FIGMANAGER.window.showMaximized()
@@ -48,20 +61,6 @@ LATTICE[CENTRE, CENTRE] = True
 #plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
 #plt.pause(PAUSE_TIME)
 #plt.clf()
-
-def update_boundary(loc_x, loc_y):
-    """
-    Positions of neighbours of a site, not yet wet
-    """
-
-    neighbours = [(loc_x, loc_y-1), (loc_x, loc_y+1), (loc_x-1, loc_y), (loc_x+1, loc_y)]
-
-    unwet_neighbours = [position for position in neighbours if not LATTICE[position]]
-
-    for pos in unwet_neighbours:
-        BOUNDARY[pos] = WEIGHTS[pos]
-
-
 update_boundary(CENTRE, CENTRE)
 
 for i in range(STEPS):
