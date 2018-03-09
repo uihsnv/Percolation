@@ -94,10 +94,10 @@ for i in range(STEPS):
     plt.clf()
 
     # Indicates if wetness hits the boundary
-    if any(coord in [wetted[0], wetted[1]] for coord in [0, SIZE-1]):
-        GAM = str(i)
-        print("Hit lattice edge at "+GAM)
-        print(wetted)
+    #if any(coord in [wetted[0], wetted[1]] for coord in [0, SIZE-1]):
+    #    GAM = str(i)
+    #    print("Hit lattice edge at "+GAM)
+    #    print(wetted)
         #break
 
     update_boundary(wetted[0], wetted[1])
