@@ -26,10 +26,10 @@ import numpy as np
 
 POOL = np.array([True, False])
 
-SIZE = 50
-SCAN = 25
-F_INIT = 0
-F_FINAL = 1
+SIZE = 300
+SCAN = 20
+F_INIT = 0.5
+F_FINAL = 0.7
 
 # Random number weights of each site indicating magnitude of the obstacle
 WEIGHTS = np.random.rand(SIZE, SIZE)
@@ -46,10 +46,19 @@ FIGMANAGER.window.showMaximized()
 
 for i in range(SCAN):
 
-    for j in np.nditer(np.where((LATTICE > F[i]) & (LATTICE < F[i+1]))):
+    for j in np.nditer(np.where((WEIGHTS > F[i]) & (WEIGHTS < F[i+1]))):
         LATTICE[j] = True
 
     WEIGHT = str(round(F[i], 2)) + ' - ' + str(round(F[i+1], 2))
     plt.title("Random Weights on a square lattice : "+WEIGHT, fontsize='xx-large')
     plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
-    plt.pause(1)
+    plt.pause(3)
+    LATTICE = np.full((SIZE, SIZE), False)
+
+#for j in np.nditer(np.where((WEIGHTS > F_INIT) & (WEIGHTS < F_FINAL))):
+#    LATTICE[j] = True
+#
+#WEIGHT = str(round(F_INIT, 2)) + ' - ' + str(round(F_FINAL, 2))
+#plt.title("Random Weights on a square lattice : "+WEIGHT, fontsize='xx-large')
+#plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
+#plt.show()
