@@ -51,35 +51,10 @@ def update_boundary(loc_x, loc_y):
     for pos in unwet_neighbours:
         BOUNDARY[pos] = WEIGHTS[pos]
 
-
-# to maximise the display
-FIGMANAGER = plt.get_current_fig_manager()
-FIGMANAGER.window.showMaximized()
-
-# The un-wet lattice
-LATTICE = np.full((SIZE, SIZE), False)
-# Random number weights of each site indicating magnitude of the obstacle
-WEIGHTS = np.random.rand(SIZE, SIZE)
-# A 'dictionary' of the location and weights of boundary sites
-BOUNDARY = {}
-
-# Choice of initial wetting
-if INIT_TYPE == 0:
-    CENTRE = (SIZE // 2) + 1
-    LATTICE[CENTRE, CENTRE] = True
-    update_boundary(CENTRE, CENTRE)
-elif INIT_TYPE == 1:
-    for j in range(SIZE):
-        LATTICE[0, j] = True
-        BOUNDARY[(1, j)] = WEIGHTS[1, j]
-        BOUNDARY[(SIZE-1, j)] = WEIGHTS[SIZE-1, j]
-
-plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
-plt.pause(PAUSE_TIME)
-plt.clf()
-
-
-for i in range(STEPS):
+def invade():
+    """
+    Perform a wetting invasion
+    """
     # The location of the site on the boundary with the smallest weight
     wetted = min(BOUNDARY, key=BOUNDARY.get)
 
@@ -87,11 +62,11 @@ for i in range(STEPS):
     del BOUNDARY[wetted]
 
     LATTICE[wetted] = True
-    plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
+    AX.matshow(LATTICE, cmap=None, vmin=0, vmax=1)
     #plt.xticks(np.arange(0, 1, 0.05))
     #plt.hist(BOUNDARY.values(), bins=50, range=(0, 1))
     plt.pause(PAUSE_TIME)
-    plt.clf()
+    plt.cla()
 
     # Indicates if wetness hits the boundary
     #if any(coord in [wetted[0], wetted[1]] for coord in [0, SIZE-1]):
@@ -102,15 +77,52 @@ for i in range(STEPS):
 
     update_boundary(wetted[0], wetted[1])
 
+# Initialise figure
+FIG = plt.figure()
+AX = plt.axes()
+# to maximise the display
+FIGMANAGER = plt.get_current_fig_manager()
+FIGMANAGER.window.showMaximized()
+
+# Convert numbers to strings, for use in the title
+ALF = str(SIZE)
+BET = str(STEPS)
+
+# The un-wet lattice
+LATTICE = np.full((SIZE, SIZE), False)
+# Random number weights of each site indicating magnitude of the obstacle
+WEIGHTS = np.random.rand(SIZE, SIZE)
+# A 'dictionary' of the location and weights of boundary sites
+BOUNDARY = {}
+
+# Choice of initial wetting
+if INIT_TYPE == 0:
+    FIG.suptitle("Invasion Percolation from a point, run for "+BET+" steps",
+                 fontsize='xx-large')
+    CENTRE = (SIZE // 2) + 1
+    LATTICE[CENTRE, CENTRE] = True
+    update_boundary(CENTRE, CENTRE)
+elif INIT_TYPE == 1:
+    FIG.suptitle("Invasion Percolation from a line, run for "+BET+" steps",
+                 fontsize='xx-large')
+    for j in range(SIZE):
+        LATTICE[0, j] = True
+        BOUNDARY[(1, j)] = WEIGHTS[1, j]
+        BOUNDARY[(SIZE-1, j)] = WEIGHTS[SIZE-1, j]
+
+AX.matshow(LATTICE, cmap=None, vmin=0, vmax=1)
+plt.pause(PAUSE_TIME)
+plt.cla()
+
+
+for i in range(STEPS):
+    invade()
+
 # to maximise the display
 #FIGMANAGER = plt.get_current_fig_manager()
 #FIGMANAGER.window.showMaximized()
 
-ALF = str(SIZE)
-BET = str(STEPS)
-plt.title("Invasion Percolation from a line, run for "+BET+" steps",
-          fontsize='x-large')
-plt.imshow(LATTICE, cmap=None, vmin=0, vmax=1)
+AX.matshow(LATTICE, cmap=None, vmin=0, vmax=1)
 #plt.xticks(np.arange(0, 1, 0.03))
 #plt.hist(BOUNDARY.values(), bins=100, range=(0, 1))
 plt.show()
