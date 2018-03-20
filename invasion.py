@@ -23,12 +23,13 @@ the boundary due to a minimum-weight invasion process
 """
 
 import matplotlib.pyplot as plt
+from matplotlib import animation
 import numpy as np
 
 np.random.seed(7278)
 SIZE = 101
-STEPS = 100
-PAUSE_TIME = 0.0001
+STEPS = 500
+INTERVAL = 20
 """
 Initialisation type:
     0 -> Single point, centre of lattice
@@ -51,14 +52,6 @@ def update_boundary(loc_x, loc_y):
     for pos in unwet_neighbours:
         BOUNDARY[pos] = WEIGHTS[pos]
 
-def init():
-    """
-    Lattice with the initial wetness
-    """
-    AX.matshow(LATTICE, cmap=None, vmin=0, vmax=1)
-    plt.pause(PAUSE_TIME)
-    plt.cla()
-
 def invade():
     """
     Perform a wetting invasion
@@ -70,13 +63,11 @@ def invade():
     del BOUNDARY[wetted]
 
     LATTICE[wetted] = True
-    AX.matshow(LATTICE, cmap=None, vmin=0, vmax=1)
-    #plt.xticks(np.arange(0, 1, 0.05))
-    #plt.hist(BOUNDARY.values(), bins=50, range=(0, 1))
-    plt.pause(PAUSE_TIME)
     plt.cla()
+    IMG.append([AX.matshow(LATTICE, cmap=None, vmin=0, vmax=1)])
+    #IMG.append([AX.hist(BOUNDARY.values(), bins=50, range=(0, 1))])
 
-    # Indicates if wetness hits the boundary
+    # Indicator for when the wetness hits a boundary
     #if any(coord in [wetted[0], wetted[1]] for coord in [0, SIZE-1]):
     #    GAM = str(i)
     #    print("Hit lattice edge at "+GAM)
@@ -85,17 +76,6 @@ def invade():
 
     update_boundary(wetted[0], wetted[1])
 
-# Initialise figure
-FIG = plt.figure()
-AX = plt.axes()
-
-# to maximise the display
-FIGMANAGER = plt.get_current_fig_manager()
-FIGMANAGER.window.showMaximized()
-
-# Convert numbers to strings, for use in the title
-ALF = str(SIZE)
-BET = str(STEPS)
 
 # The un-wet lattice
 LATTICE = np.full((SIZE, SIZE), False)
@@ -103,6 +83,14 @@ LATTICE = np.full((SIZE, SIZE), False)
 WEIGHTS = np.random.rand(SIZE, SIZE)
 # A 'dictionary' of the location and weights of boundary sites
 BOUNDARY = {}
+
+# Initialise figure
+FIG = plt.figure(figsize=(19.2, 10.8))
+AX = plt.axes()
+
+# Convert numbers to strings, for use in the title
+ALF = str(SIZE)
+BET = str(STEPS)
 
 # Choice of initial wetting
 if INIT_TYPE == 0:
@@ -120,18 +108,20 @@ elif INIT_TYPE == 1:
         BOUNDARY[(SIZE-1, j)] = WEIGHTS[SIZE-1, j]
 
 
-# Initial plot
-init()
+# Initialise an empty list to store the images
+IMG = []
 
-# Supsequent invasion plots
+# First image of the lattice with the initial condition wetness
+IMG.append([AX.matshow(LATTICE, cmap=None, vmin=0, vmax=1)])
+#AX.xticks(np.arange(0, 1, 0.05))
+#IMG.append([AX.hist(BOUNDARY.values(), bins=50, range=(0, 1))])
+
 for i in range(STEPS):
     invade()
 
-# to maximise the display
-#FIGMANAGER = plt.get_current_fig_manager()
-#FIGMANAGER.window.showMaximized()
+ANIM = animation.ArtistAnimation(FIG, IMG, interval=INTERVAL, blit=True)
 
-AX.matshow(LATTICE, cmap=None, vmin=0, vmax=1)
-#plt.xticks(np.arange(0, 1, 0.03))
-#plt.hist(BOUNDARY.values(), bins=100, range=(0, 1))
+# Comment-out the 'plt.cla()' in line 66 if you want to save to a file
+#ANIM.save('invasion-percolation_point.mp4', extra_args=['-vcodec', 'libx264'])
+
 plt.show()
