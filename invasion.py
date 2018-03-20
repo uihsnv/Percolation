@@ -51,6 +51,14 @@ def update_boundary(loc_x, loc_y):
     for pos in unwet_neighbours:
         BOUNDARY[pos] = WEIGHTS[pos]
 
+def init():
+    """
+    Lattice with the initial wetness
+    """
+    AX.matshow(LATTICE, cmap=None, vmin=0, vmax=1)
+    plt.pause(PAUSE_TIME)
+    plt.cla()
+
 def invade():
     """
     Perform a wetting invasion
@@ -80,6 +88,7 @@ def invade():
 # Initialise figure
 FIG = plt.figure()
 AX = plt.axes()
+
 # to maximise the display
 FIGMANAGER = plt.get_current_fig_manager()
 FIGMANAGER.window.showMaximized()
@@ -110,11 +119,11 @@ elif INIT_TYPE == 1:
         BOUNDARY[(1, j)] = WEIGHTS[1, j]
         BOUNDARY[(SIZE-1, j)] = WEIGHTS[SIZE-1, j]
 
-AX.matshow(LATTICE, cmap=None, vmin=0, vmax=1)
-plt.pause(PAUSE_TIME)
-plt.cla()
 
+# Initial plot
+init()
 
+# Supsequent invasion plots
 for i in range(STEPS):
     invade()
 
