@@ -22,4 +22,4 @@ All the files are independent programs, and may be run using python 3. The diffe
 
 The `interactive` and `clusters` programs are incomplete, and are a WORK-IN-PROGRESS.
 
-![](./invasion_line.svg)
+![](./line_invasion.png)
