@@ -121,7 +121,9 @@ for i in range(STEPS):
 
 ANIM = animation.ArtistAnimation(FIG, IMG, interval=INTERVAL, blit=True)
 
-# Comment-out the 'plt.cla()' in line 66 if you want to save to a file
-#ANIM.save('invasion-percolation_point.mp4', extra_args=['-vcodec', 'libx264'])
+## Comment-out the 'plt.cla()' in line 66 if you want to save to a file
+#ANIM.save('invasion-percolation_line.mp4', extra_args=['-vcodec', 'libx264'],
+#          metadata=dict(title=FIG._suptitle.get_text(), artist='Vishnu V. Krishnan',
+#                        subject='Statistical Physics', copyright='CC BY-SA 4.0'))
 
 plt.show()
