@@ -122,7 +122,7 @@ for i in range(STEPS):
 ## To plot an image, instead of the animation, uncomment this,
 ## and comment-out all lines with 'IMG' and 'ANIM'
 #AX.matshow(LATTICE, cmap=None, vmin=0, vmax=1)
-#FIG.savefig("line_invasion.svg", dpi=300, transparent=True)
+#FIG.savefig("line_invasion.png", dpi=300, transparent=True, bbox_inches='tight')
 
 ANIM = animation.ArtistAnimation(FIG, IMG, interval=INTERVAL, blit=True)
 
