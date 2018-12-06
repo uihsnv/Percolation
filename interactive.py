@@ -27,18 +27,25 @@ import numpy as np
 POOL = np.array([True, False])
 
 SIZE = 200
-P = 0.3
-IM = plt.imshow(np.reshape(choices(POOL, weights=[P, 1-P], k=(SIZE**2)), (SIZE, SIZE)))
+P_INIT = 0.3
 
-AXP = plt.axes([0.25, 0.1, 0.65, 0.03])
-P = Slider(AXP, 'p', 0.0, 1.0, valinit=0)
-
-def update():
+def update(val):
     """
     lattice with the new 'p'
     """
-    plt.imshow(np.reshape(choices(POOL, weights=[P.val, 1-(P.val)], k=(SIZE**2)), (SIZE, SIZE)))
+    plt.suptitle(f"Percolation on a square lattice : p = {val:.3f}", fontsize='xx-large')
+    IM.set_data(np.reshape(choices(POOL, weights=[val, 1-val], k=(SIZE**2)), (SIZE, SIZE)))
+    plt.draw()
 
-P.on_changed(update)
+plt.suptitle(f"Percolation on a square lattice : p = {P_INIT:.3f}", fontsize='xx-large')
+IM = plt.imshow(np.reshape(choices(POOL, weights=[P_INIT, 1-P_INIT], k=(SIZE**2)), (SIZE, SIZE)),
+                cmap=None, vmin=0, vmax=1)
 
+AXSL = plt.axes([0.2, 0.05, 0.65, 0.03])
+PSL = Slider(AXSL, 'p', 0.0, 1.0, valinit=P_INIT)
+
+PSL.on_changed(update)
+
+FIGMANAGER = plt.get_current_fig_manager()
+FIGMANAGER.window.showMaximized()
 plt.show()
