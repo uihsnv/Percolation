@@ -53,8 +53,7 @@ FIGMANAGER = plt.get_current_fig_manager()
 FIGMANAGER.window.showMaximized()
 
 # string to display the p value along with the image
-PEA = str(round(P_INIT, 2))
-plt.title("Percolation on a square lattice : p = "+PEA, fontsize='xx-large')
+plt.title(f"Percolation on a square lattice : p = {P_INIT:.2f}", fontsize='xx-large')
 plt.imshow(np.reshape(LATTICE, (SIZE, SIZE)), cmap=None, vmin=0, vmax=1)
 plt.pause(0.5)
 
@@ -69,7 +68,6 @@ for fraction in IT:
         for i in np.nditer(np.where(LATTICE)):
             LATTICE[i] = np.random.choice(POOL, replace=True, p=[1-fraction, fraction])
 
-    PEA = str(round(P[IT.index + 1], 2))
-    plt.title("Percolation on a square lattice : p = "+PEA, fontsize='xx-large')
+    plt.title(f"Percolation on a square lattice : p = {P[IT.index + 1]:.2f}", fontsize='xx-large')
     plt.imshow(np.reshape(LATTICE, (SIZE, SIZE)), cmap=None, vmin=0, vmax=1)
     plt.pause(1)

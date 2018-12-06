@@ -88,19 +88,15 @@ BOUNDARY = {}
 FIG = plt.figure(figsize=(19.2, 10.8))
 AX = plt.axes()
 
-# Convert numbers to strings, for use in the title
-ALF = str(SIZE)
-BET = str(STEPS)
-
 # Choice of initial wetting
 if INIT_TYPE == 0:
-    FIG.suptitle("Invasion Percolation from a point, run for "+BET+" steps",
+    FIG.suptitle(f"Invasion Percolation from a point, run for {SIZE} steps",
                  fontsize='xx-large')
     CENTRE = (SIZE // 2) + 1
     LATTICE[CENTRE, CENTRE] = True
     update_boundary(CENTRE, CENTRE)
 elif INIT_TYPE == 1:
-    FIG.suptitle("Invasion Percolation from a line, run for "+BET+" steps",
+    FIG.suptitle(f"Invasion Percolation from a line, run for {SIZE} steps",
                  fontsize='xx-large')
     for j in range(SIZE):
         LATTICE[0, j] = True

@@ -29,7 +29,6 @@ P = 0.999
 
 FIGMANAGER = plt.get_current_fig_manager()
 FIGMANAGER.window.showMaximized()
-PEA = str(round(P, 3))
-plt.title("Percolation on a square lattice : p = "+PEA, fontsize='xx-large')
+plt.title(f"Percolation on a square lattice : p = {P:.3f}", fontsize='xx-large')
 plt.imshow(np.reshape(np.random.choice(POOL, SIZE**2, True, [P, 1-P]), (SIZE, SIZE)))
 plt.show()
