@@ -16,7 +16,7 @@ All the files are independent programs, and may be run using python 3. The diffe
 
  * `percolation`: A single image of percolation at some **P**.
  * `series`     : A slide-show of lattices across a range of **P** values.
- * `interactive`: Like `series`, but with a slider, and also, it is a re-sampling, rather than an in-place update.
+ * `interactive`: Like `series`, but with a slider.
  * `clusters`   : Identifying the infinite cluster, and also other finite ones.
  * `invasion`   : Emergence of p<sub>c</sub> from a wetting process
 

@@ -19,27 +19,42 @@ Percolation
 
 """
 
-from random import choices
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider
-import numpy as np
+from numpy import array, count_nonzero, reshape, nditer, where, logical_not
+from numpy.random import choice
 
-POOL = np.array([True, False])
+POOL = array([True, False])
 
-SIZE = 200
+SIZE = 50
+SIZE2 = SIZE**2
 P_INIT = 0.3
+
+# initial percolation lattice
+LATTICE = choice(POOL, SIZE2, True, [P_INIT, 1-P_INIT])
 
 def update(val):
     """
     lattice with the new 'p'
     """
+
+    pea = count_nonzero(LATTICE)/SIZE2
+
+    if val > pea:
+        fraction = (val - pea)/(1 - pea)
+        for i in nditer(where(logical_not(LATTICE))):
+            LATTICE[i] = choice(POOL, replace=True, p=[fraction, 1-fraction])
+    elif pea > val:
+        fraction = (pea - val)/pea
+        for i in nditer(where(LATTICE)):
+            LATTICE[i] = choice(POOL, replace=True, p=[1-fraction, fraction])
+
     plt.suptitle(f"Percolation on a square lattice : p = {val:.3f}", fontsize='xx-large')
-    IM.set_data(np.reshape(choices(POOL, weights=[val, 1-val], k=(SIZE**2)), (SIZE, SIZE)))
+    IM.set_data(reshape(LATTICE, (SIZE, SIZE)))
     plt.draw()
 
 plt.suptitle(f"Percolation on a square lattice : p = {P_INIT:.3f}", fontsize='xx-large')
-IM = plt.imshow(np.reshape(choices(POOL, weights=[P_INIT, 1-P_INIT], k=(SIZE**2)), (SIZE, SIZE)),
-                cmap=None, vmin=0, vmax=1)
+IM = plt.imshow(reshape(LATTICE, (SIZE, SIZE)), cmap=None, vmin=0, vmax=1)
 
 AXSL = plt.axes([0.2, 0.05, 0.65, 0.03])
 PSL = Slider(AXSL, 'p', 0.0, 1.0, valinit=P_INIT)
