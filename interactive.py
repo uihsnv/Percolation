@@ -49,11 +49,11 @@ def update(val):
         for i in nditer(where(LATTICE)):
             LATTICE[i] = choice(POOL, replace=True, p=[1-fraction, fraction])
 
-    plt.suptitle(f"Percolation on a square lattice : p = {val:.3f}", fontsize='xx-large')
+    plt.suptitle(f"Percolation on a square lattice : p = {val:.3f}", y=0.95, fontsize='xx-large')
     IM.set_data(reshape(LATTICE, (SIZE, SIZE)))
     plt.draw()
 
-plt.suptitle(f"Percolation on a square lattice : p = {P_INIT:.3f}", fontsize='xx-large')
+plt.suptitle(f"Percolation on a square lattice : p = {P_INIT:.3f}", y=0.95, fontsize='xx-large')
 IM = plt.imshow(reshape(LATTICE, (SIZE, SIZE)), cmap=None, vmin=0, vmax=1)
 
 AXSL = plt.axes([0.2, 0.05, 0.65, 0.03])
