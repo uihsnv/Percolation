@@ -19,7 +19,7 @@ Percolation
 
 """
 
-import matplotlib.pyplot as plt
+from matplotlib.pyplot import suptitle, imshow, axes, get_current_fig_manager, show, draw
 from matplotlib.widgets import Slider
 from numpy import array, count_nonzero, reshape, nditer, where, logical_not
 from numpy.random import choice
@@ -49,18 +49,18 @@ def update(val):
         for i in nditer(where(LATTICE)):
             LATTICE[i] = choice(POOL, replace=True, p=[1-fraction, fraction])
 
-    plt.suptitle(f"Percolation on a square lattice : p = {val:.3f}", y=0.95, fontsize='xx-large')
+    suptitle(f"Percolation on a square lattice : p = {val:.3f}", y=0.95, fontsize='xx-large')
     IM.set_data(reshape(LATTICE, (SIZE, SIZE)))
-    plt.draw()
+    draw()
 
-plt.suptitle(f"Percolation on a square lattice : p = {P_INIT:.3f}", y=0.95, fontsize='xx-large')
-IM = plt.imshow(reshape(LATTICE, (SIZE, SIZE)), cmap=None, vmin=0, vmax=1)
+suptitle(f"Percolation on a square lattice : p = {P_INIT:.3f}", y=0.95, fontsize='xx-large')
+IM = imshow(reshape(LATTICE, (SIZE, SIZE)), cmap=None, vmin=0, vmax=1)
 
-AXSL = plt.axes([0.2, 0.05, 0.65, 0.03])
+AXSL = axes([0.2, 0.05, 0.65, 0.03])
 PSL = Slider(AXSL, 'p', 0.0, 1.0, valinit=P_INIT)
 
 PSL.on_changed(update)
 
-FIGMANAGER = plt.get_current_fig_manager()
+FIGMANAGER = get_current_fig_manager()
 FIGMANAGER.window.showMaximized()
-plt.show()
+show()
