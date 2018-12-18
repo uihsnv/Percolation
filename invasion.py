@@ -90,13 +90,13 @@ AX = plt.axes()
 
 # Choice of initial wetting
 if INIT_TYPE == 0:
-    FIG.suptitle(f"Invasion Percolation from a point, run for {SIZE} steps",
+    FIG.suptitle(f"Invasion Percolation from a point, run for {STEPS} steps",
                  fontsize='xx-large')
     CENTRE = (SIZE // 2) + 1
     LATTICE[CENTRE, CENTRE] = True
     update_boundary(CENTRE, CENTRE)
 elif INIT_TYPE == 1:
-    FIG.suptitle(f"Invasion Percolation from a line, run for {SIZE} steps",
+    FIG.suptitle(f"Invasion Percolation from a line, run for {STEPS} steps",
                  fontsize='xx-large')
     for j in range(SIZE):
         LATTICE[0, j] = True
@@ -112,7 +112,7 @@ IMG.append([AX.matshow(LATTICE, cmap=None, vmin=0, vmax=1)])
 #AX.xticks(np.arange(0, 1, 0.05))
 #IMG.append([AX.hist(BOUNDARY.values(), bins=50, range=(0, 1))])
 
-for i in range(STEPS):
+for _ in range(STEPS):
     invade()
 
 ## To plot an image, instead of the animation, uncomment this,
@@ -123,7 +123,8 @@ for i in range(STEPS):
 ANIM = animation.ArtistAnimation(FIG, IMG, interval=INTERVAL, blit=True)
 
 ## Comment-out the 'plt.cla()' in line 66 if you want to save to a file
-#ANIM.save('invasion-percolation_line.mp4', extra_args=['-vcodec', 'libx264'],
+#ANIM.save('Figures/invasion-percolation_point.gif', writer='imagemagick', fps=30, dpi=45,
+#ANIM.save('invasion-percolation_point.mp4', extra_args=['-vcodec libx264'],
 #          metadata=dict(title=FIG._suptitle.get_text(), artist='Vishnu V. Krishnan',
 #                        subject='Statistical Physics', copyright='CC BY-SA 4.0'))
 
