@@ -5,6 +5,8 @@ This repository is a small collection of code to model the statistical phenomeno
 
 Site percolation is considered, on a 2 dimensional, square lattice.
 
+**Dependencies**: python3, numpy, and matplotlib
+
 The notation used in the program is as follows:
 
  * **SIZE** : The number of sites along a length of the square lattice. So the total number of sites will be **SIZE**<sup>2</sup>.
