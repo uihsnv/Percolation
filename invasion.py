@@ -22,11 +22,12 @@ the boundary due to a minimum-weight invasion process
 
 """
 
-import matplotlib.pyplot as plt
-from matplotlib import animation
-import numpy as np
+from matplotlib.pyplot import cla, figure, axes, show
+from matplotlib.animation import ArtistAnimation
+from numpy import full#, arange
+from numpy.random import seed, rand
 
-np.random.seed(7278)
+seed(7278)
 SIZE = 101
 STEPS = 500
 INTERVAL = 20
@@ -63,7 +64,7 @@ def invade():
     del BOUNDARY[wetted]
 
     LATTICE[wetted] = True
-    plt.cla()
+    cla()
     IMG.append([AX.matshow(LATTICE, cmap=None, vmin=0, vmax=1)])
     #IMG.append([AX.hist(BOUNDARY.values(), bins=50, range=(0, 1))])
 
@@ -78,15 +79,15 @@ def invade():
 
 
 # The un-wet lattice
-LATTICE = np.full((SIZE, SIZE), False)
+LATTICE = full((SIZE, SIZE), False)
 # Random number weights of each site indicating magnitude of the obstacle
-WEIGHTS = np.random.rand(SIZE, SIZE)
+WEIGHTS = rand(SIZE, SIZE)
 # A 'dictionary' of the location and weights of boundary sites
 BOUNDARY = {}
 
 # Initialise figure
-FIG = plt.figure(figsize=(19.2, 10.8))
-AX = plt.axes()
+FIG = figure(figsize=(19.2, 10.8))
+AX = axes()
 
 # Choice of initial wetting
 if INIT_TYPE == 0:
@@ -109,7 +110,7 @@ IMG = []
 
 # First image of the lattice with the initial condition wetness
 IMG.append([AX.matshow(LATTICE, cmap=None, vmin=0, vmax=1)])
-#AX.xticks(np.arange(0, 1, 0.05))
+#AX.xticks(arange(0, 1, 0.05))
 #IMG.append([AX.hist(BOUNDARY.values(), bins=50, range=(0, 1))])
 
 for _ in range(STEPS):
@@ -120,12 +121,12 @@ for _ in range(STEPS):
 #AX.matshow(LATTICE, cmap=None, vmin=0, vmax=1)
 #FIG.savefig("line_invasion.png", dpi=300, transparent=True, bbox_inches='tight')
 
-ANIM = animation.ArtistAnimation(FIG, IMG, interval=INTERVAL, blit=True)
+ANIM = ArtistAnimation(FIG, IMG, interval=INTERVAL, blit=True)
 
-## Comment-out the 'plt.cla()' in line 66 if you want to save to a file
+## Comment-out the 'cla()' in line 66 if you want to save to a file
 #ANIM.save('Figures/invasion-percolation_point.gif', writer='imagemagick', fps=30, dpi=45,
 #ANIM.save('invasion-percolation_point.mp4', extra_args=['-vcodec libx264'],
 #          metadata=dict(title=FIG._suptitle.get_text(), artist='Vishnu V. Krishnan',
 #                        subject='Statistical Physics', copyright='CC BY-SA 4.0'))
 
-plt.show()
+show()
