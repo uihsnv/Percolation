@@ -24,4 +24,4 @@ All the files are independent programs, and may be run using python 3. The diffe
 
 The `clusters` program is incomplete, and is a WORK-IN-PROGRESS.
 
-![](./line_invasion.png)
+![](./invasion-percolation_point.gif)
