@@ -20,19 +20,25 @@ Finding the infinite cluster, and isolating the finte ones too.
 
 """
 
-import matplotlib.pyplot as plt
-import numpy as np
+from matplotlib.pyplot import get_current_fig_manager, title, imshow, pause
+from numpy import array, reshape
+from numpy.random import choice
 
-POOL = np.array([True, False])
+POOL = array([True, False])
 
 SIZE = 100
 P = 0.7
 
-PERK = np.random.choice(POOL, SIZE**2, True, [P, 1-P])
+PERK = reshape(choice(POOL, SIZE**2, True, [P, 1-P]), (SIZE, SIZE))
 
-FIGMANAGER = plt.get_current_fig_manager()
+CLUSTERS = []
+
+for i in range(SIZE):
+    PERK[i]
+
+FIGMANAGER = get_current_fig_manager()
 FIGMANAGER.window.showMaximized()
 
-plt.title(f"Percolation on a square lattice : p = {P:.3f}", fontsize='xx-large')
-plt.imshow(np.reshape(PERK, (SIZE, SIZE)))
-plt.pause(1)
+title(f"Percolation on a square lattice : p = {P:.3f}", fontsize='xx-large')
+imshow(PERK)
+pause(1)
