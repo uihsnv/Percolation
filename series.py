@@ -50,7 +50,7 @@ else:
 
 # to maximise the display
 FIGMANAGER = plt.get_current_fig_manager()
-FIGMANAGER.window.showMaximized()
+FIGMANAGER.full_screen_toggle()
 
 # string to display the p value along with the image
 plt.title(f"Percolation on a square lattice : p = {P_INIT:.2f}", fontsize='xx-large')

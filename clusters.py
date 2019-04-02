@@ -37,7 +37,7 @@ for i in range(SIZE):
     PERK[i]
 
 FIGMANAGER = get_current_fig_manager()
-FIGMANAGER.window.showMaximized()
+FIGMANAGER.full_screen_toggle()
 
 title(f"Percolation on a square lattice : p = {P:.3f}", fontsize='xx-large')
 imshow(PERK)

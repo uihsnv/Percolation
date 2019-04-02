@@ -62,5 +62,5 @@ PSL = Slider(AXSL, 'p', 0.0, 1.0, valinit=P_INIT)
 PSL.on_changed(update)
 
 FIGMANAGER = get_current_fig_manager()
-FIGMANAGER.window.showMaximized()
+FIGMANAGER.full_screen_toggle()
 show()

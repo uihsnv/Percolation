@@ -28,7 +28,7 @@ SIZE = 100
 P = 0.999
 
 FIGMANAGER = plt.get_current_fig_manager()
-FIGMANAGER.window.showMaximized()
+FIGMANAGER.full_screen_toggle()
 plt.title(f"Percolation on a square lattice : p = {P:.3f}", fontsize='xx-large')
 plt.imshow(np.reshape(np.random.choice(POOL, SIZE**2, True, [P, 1-P]), (SIZE, SIZE)))
 plt.show()
