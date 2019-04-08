@@ -20,10 +20,11 @@ A series of lattices with sites added/removed, over a range of 'p'
 
 """
 
-import matplotlib.pyplot as plt
-import numpy as np
+from matplotlib.pyplot import get_current_fig_manager, imshow, title, pause
+from numpy import array, linspace, reshape, nditer, where, logical_not
+from numpy.random import choice
 
-POOL = np.array([True, False])
+POOL = array([True, False])
 
 SIZE = 50
 PEAS = 25
@@ -31,10 +32,10 @@ P_INIT = 1
 P_FINAL = 0
 
 # initial percolation lattice
-LATTICE = np.random.choice(POOL, SIZE**2, True, [P_INIT, 1-P_INIT])
+LATTICE = choice(POOL, SIZE**2, True, [P_INIT, 1-P_INIT])
 
 # list of 'p' values to sample/plot/scan-across
-P = np.linspace(P_INIT, P_FINAL, num=PEAS, endpoint=True)
+P = linspace(P_INIT, P_FINAL, num=PEAS, endpoint=True)
 
 # Say we need to go from a lattice of p -> p'
 if 0 <= P_INIT < P_FINAL <= 1:
@@ -49,25 +50,25 @@ else:
     raise ValueError("Check initial and final 'p's")
 
 # to maximise the display
-FIGMANAGER = plt.get_current_fig_manager()
+FIGMANAGER = get_current_fig_manager()
 FIGMANAGER.full_screen_toggle()
 
 # string to display the p value along with the image
-plt.title(f"Percolation on a square lattice : p = {P_INIT:.2f}", fontsize='xx-large')
-plt.imshow(np.reshape(LATTICE, (SIZE, SIZE)), cmap=None, vmin=0, vmax=1)
-plt.pause(0.5)
+title(f"Percolation on a square lattice : p = {P_INIT:.2f}", fontsize='xx-large')
+imshow(reshape(LATTICE, (SIZE, SIZE)), cmap=None, vmin=0, vmax=1)
+pause(0.5)
 
 # construct an iterator over the empty-site flip-fraction array
-IT = np.nditer(X, flags=['c_index'])
+IT = nditer(X, flags=['c_index'])
 for fraction in IT:
 
     if CASE:
-        for i in np.nditer(np.where(np.logical_not(LATTICE))):
-            LATTICE[i] = np.random.choice(POOL, replace=True, p=[fraction, 1-fraction])
+        for i in nditer(where(logical_not(LATTICE))):
+            LATTICE[i] = choice(POOL, replace=True, p=[fraction, 1-fraction])
     else:
-        for i in np.nditer(np.where(LATTICE)):
-            LATTICE[i] = np.random.choice(POOL, replace=True, p=[1-fraction, fraction])
+        for i in nditer(where(LATTICE)):
+            LATTICE[i] = choice(POOL, replace=True, p=[1-fraction, fraction])
 
-    plt.title(f"Percolation on a square lattice : p = {P[IT.index + 1]:.2f}", fontsize='xx-large')
-    plt.imshow(np.reshape(LATTICE, (SIZE, SIZE)), cmap=None, vmin=0, vmax=1)
-    plt.pause(1)
+    title(f"Percolation on a square lattice : p = {P[IT.index + 1]:.2f}", fontsize='xx-large')
+    imshow(reshape(LATTICE, (SIZE, SIZE)), cmap=None, vmin=0, vmax=1)
+    pause(1)
