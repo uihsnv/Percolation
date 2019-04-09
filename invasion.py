@@ -22,7 +22,7 @@ the boundary due to a minimum-weight invasion process
 
 """
 
-from matplotlib.pyplot import cla, figure, axes, show
+from matplotlib.pyplot import cla, figure, axes, get_current_fig_manager, show
 from matplotlib.animation import ArtistAnimation
 from numpy import full#, arange
 from numpy.random import seed, rand
@@ -86,7 +86,7 @@ WEIGHTS = rand(SIZE, SIZE)
 BOUNDARY = {}
 
 # Initialise figure
-FIG = figure(figsize=(19.2, 10.8))
+FIG = figure()
 AX = axes()
 
 FIG.suptitle(f"Invasion Percolation from a {TYPE}, run for {STEPS} steps",
@@ -128,4 +128,6 @@ ANIM = ArtistAnimation(FIG, IMG, interval=INTERVAL, blit=True)
 #          metadata=dict(title=FIG._suptitle.get_text(), artist='Vishnu V. Krishnan',
 #                        subject='Statistical Physics', copyright='CC BY-SA 4.0'))
 
+FIGMANAGER = get_current_fig_manager()
+FIGMANAGER.full_screen_toggle()
 show()
