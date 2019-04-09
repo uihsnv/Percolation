@@ -22,6 +22,7 @@ the boundary due to a minimum-weight invasion process
 
 """
 
+from sys import exit as sys_exit
 from matplotlib.pyplot import cla, figure, axes, get_current_fig_manager, show
 from matplotlib.animation import ArtistAnimation
 from numpy import full#, arange
@@ -102,6 +103,8 @@ elif TYPE == "line":
         LATTICE[0, j] = True
         BOUNDARY[(1, j)] = WEIGHTS[1, j]
         BOUNDARY[(SIZE-1, j)] = WEIGHTS[SIZE-1, j]
+else:
+    sys_exit('Error: Ensure that TYPE is one of the accepted strings')
 
 
 # Initialise an empty list to store the images
