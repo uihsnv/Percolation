@@ -11,7 +11,7 @@ The notation used in the program is as follows:
 
  * **SIZE** : The number of sites along a length of the square lattice. So the total number of sites will be **SIZE**<sup>2</sup>.
  * **P** : The occupation probability of a site.
- * **PEAS** : The number of probability values to scan through.
+ * **STEPS** : The number of distinct stages.
 
 
 All the files are independent programs, and may be run using python 3. The different programs generate slightly different visualisations of percolation:

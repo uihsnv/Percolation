@@ -27,7 +27,7 @@ from numpy.random import choice
 POOL = array([True, False])
 
 SIZE = 50
-PEAS = 25
+STEPS = 25
 P_INIT = 1
 P_FINAL = 0
 
@@ -35,7 +35,7 @@ P_FINAL = 0
 LATTICE = choice(POOL, SIZE**2, True, [P_INIT, 1-P_INIT])
 
 # list of 'p' values to sample/plot/scan-across
-P = linspace(P_INIT, P_FINAL, num=PEAS, endpoint=True)
+P = linspace(P_INIT, P_FINAL, num=STEPS, endpoint=True)
 
 # Say we need to go from a lattice of p -> p'
 if 0 <= P_INIT < P_FINAL <= 1:
