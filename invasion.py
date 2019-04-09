@@ -33,10 +33,10 @@ STEPS = 500
 INTERVAL = 20
 """
 Initialisation type:
-    0 -> Single point, centre of lattice
-    1 -> Line spanning a lattice side, edge of lattice
+    point -> Single point, centre of lattice
+    line  -> Line spanning a lattice side, edge of lattice
 """
-INIT_TYPE = 1
+TYPE = "line"
 
 def update_boundary(loc_x, loc_y):
     """
@@ -89,16 +89,15 @@ BOUNDARY = {}
 FIG = figure(figsize=(19.2, 10.8))
 AX = axes()
 
+FIG.suptitle(f"Invasion Percolation from a {TYPE}, run for {STEPS} steps",
+             fontsize='xx-large')
+
 # Choice of initial wetting
-if INIT_TYPE == 0:
-    FIG.suptitle(f"Invasion Percolation from a point, run for {STEPS} steps",
-                 fontsize='xx-large')
+if TYPE == "point":
     CENTRE = (SIZE // 2) + 1
     LATTICE[CENTRE, CENTRE] = True
     update_boundary(CENTRE, CENTRE)
-elif INIT_TYPE == 1:
-    FIG.suptitle(f"Invasion Percolation from a line, run for {STEPS} steps",
-                 fontsize='xx-large')
+elif TYPE == "line":
     for j in range(SIZE):
         LATTICE[0, j] = True
         BOUNDARY[(1, j)] = WEIGHTS[1, j]
