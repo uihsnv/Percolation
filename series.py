@@ -20,6 +20,7 @@ A series of lattices with sites added/removed, over a range of 'p'
 
 """
 
+from sys import exit as sys_exit
 from matplotlib.pyplot import get_current_fig_manager, imshow, title, pause
 from numpy import array, linspace, reshape, nditer, where, logical_not
 from numpy.random import choice
@@ -47,7 +48,7 @@ elif 1 >= P_INIT > P_FINAL >= 0:
     # fraction of filled sites to flip = (p - p')/(p)
     X = (P[:-1] - P[1:])/P[:-1]
 else:
-    raise ValueError("Check initial and final 'p's")
+    sys_exit("Error: Check initial and final 'p's")
 
 # to maximise the display
 FIGMANAGER = get_current_fig_manager()
